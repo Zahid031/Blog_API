@@ -35,9 +35,9 @@ http://ec2-67-202-2-33.compute-1.amazonaws.com:8001/
 ### Blog Posts
 - `GET /blog/posts/` - List all posts (paginated)
 - `POST /blog/posts/` - Create a new post (authenticated users only)
-- `GET /api/posts/<id>/` - Retrieve a specific post
-- `PUT /api/posts/<id>/` - Update a post (only by post author)
-- `DELETE /api/posts/<id>/` - Delete a post (only by post author)
+- `GET /blog/posts/<id>/` - Retrieve a specific post
+- `PUT /blog/posts/<id>/` - Update a post (only by post author)
+- `DELETE /blog/posts/<id>/` - Delete a post (only by post author)
 
 ## Setup Instructions
 
@@ -54,7 +54,7 @@ cd Blog-API
 docker-compose up --build
 ```
 
-3. The API will be available at http://localhost:8000/
+3. The API will be available at http://localhost:8001/
 
 ### Manual Setup
 
