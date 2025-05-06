@@ -1,29 +1,28 @@
+version: '3.9'
 
 services:
+  db:
+    image: postgres
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=blog_db
+      - POSTGRES_USER=blog_user
+      - POSTGRES_PASSWORD=blog_user
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
   web:
     build: .
-    command: >
-      bash -c "python manage.py migrate &&
-               python manage.py runserver 0.0.0.0:8002"
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
+      - "8001:8000"
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@db:5432/blog_api
-
-  db:
-    image: postgres:13
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_USER=blog_user
-      - POSTGRES_PASSWORD=blog_user
-      - POSTGRES_DB=blog_db
-    ports:
-      - "5432:5432"
+      - DATABASE_URL=postgres://blog_user:blog_user@db:5432/blog_db
 
 volumes:
   postgres_data:

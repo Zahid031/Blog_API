@@ -1,6 +1,6 @@
-# Blog API
+# Dockerized Blog API (Django+PostgreSQL)
 
-A RESTful API for a blogging platform built with Django Rest Framework.
+A RESTful API for a blogging platform built with Django Rest Framework 
 
 ## Features
 
@@ -85,6 +85,8 @@ python manage.py runserver
 
 ## API Usage Examples
 
+## You can use any browser it will have a user interface to check the API.
+
 ### Register a new user
 ```bash
 curl -X POST http://localhost:8000/auth/register/ \
@@ -117,7 +119,7 @@ curl -X GET http://localhost:8000/blog/posts/
 curl -X GET http://localhost:8000/blog/posts/1/
 ```
 
-### Update a post
+### Update a post(Author)
 ```bash
 curl -X PUT http://localhost:8000/blog/posts/1/ \
   -H "Authorization: Bearer <your_token>" \
@@ -125,7 +127,7 @@ curl -X PUT http://localhost:8000/blog/posts/1/ \
   -d '{"title":"Updated Post Title", "content":"Updated content"}'
 ```
 
-### Delete a post
+### Delete a post (Author)
 ```bash
 curl -X DELETE http://localhost:8000/blog/posts/1/ \
   -H "Authorization: Bearer <your_token>"
