@@ -1,6 +1,13 @@
 # Dockerized Blog API (Django+PostgreSQL)
+## Hosted on AWS 
+
 
 A RESTful API for a blogging platform built with Django Rest Framework 
+
+# Live API 
+```bash
+http://ec2-67-202-2-33.compute-1.amazonaws.com:8001/
+```
 
 ## Features
 
@@ -10,6 +17,7 @@ A RESTful API for a blogging platform built with Django Rest Framework
 - Image upload functionality for posts
 - API pagination
 - Dockerized application
+
 
 ## Technologies Used
 - Django Rest Framework
