@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_yasg',
     'corsheaders',
     'rest_framework_simplejwt',
     'blog',
@@ -86,7 +87,7 @@ DATABASES = {
         'NAME': 'blog_db',
         'USER': 'blog_user',
         'PASSWORD': 'blog_user',
-        'HOST': 'db',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
