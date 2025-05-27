@@ -28,6 +28,7 @@ services:
 volumes:
   postgres_data:
 
+
   
 # version: '3.9'
 
