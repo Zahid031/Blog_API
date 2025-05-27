@@ -14,5 +14,6 @@ RUN python manage.py collectstatic --noinput
 
 RUN chmod +x /code/entrypoint.sh
 
-CMD ["./entrypoint.sh"]
+# CMD ["./entrypoint.sh"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
 
