@@ -18,7 +18,7 @@ REGION="us-east-1"
 aws ec2 run-instances \
   --image-id $AMI_ID \
   --instance-type $INSTANCE_TYPE \
-  --key-name $KEY_NAME \
+  --key-name $KEY_NAME 
   --security-group-ids $SECURITY_GROUP \
   --region $REGION \
   --count 1 \

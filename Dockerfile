@@ -6,10 +6,13 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /code
 
 COPY requirements.txt /code/
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip && pip install -r requirements.txt
+#RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /code/
+RUN python manage.py collectstatic --noinput
 
-COPY wait-for-db.sh /wait-for-db.sh
-RUN chmod +x /wait-for-db.sh
+
+
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
