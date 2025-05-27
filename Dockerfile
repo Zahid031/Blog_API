@@ -12,7 +12,7 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 COPY . /code/
 RUN python manage.py collectstatic --noinput
 
+RUN chmod +x /code/entrypoint.sh
 
-
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["./entrypoint.sh"]
 
