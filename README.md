@@ -1,4 +1,4 @@
-# Dockerized Blog API (Django+PostgreSQL)
+# Dockerized Blog API (Django+PostgreSQL+AWS+CI/CD)
 ## Hosted on AWS 
 
 
