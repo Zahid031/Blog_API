@@ -18,9 +18,7 @@ services:
       retries: 5
 
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: zahid03/blog_api:${IMAGE_TAG}
     volumes:
       - .:/code
     ports:
