@@ -1,18 +1,16 @@
-name: CD
+name: Deploy to AWS
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Build & Push Docker Image"]
+    types:
+      - completed
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted   # <-- Use self-hosted runner
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Setup SSH Key
         run: |
           echo "${{ secrets.AWS_EC2_KEY }}" > ec2_key.pem
@@ -20,15 +18,16 @@ jobs:
 
       - name: Deploy to AWS EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i ec2_key.pem ubuntu@${{ secrets.AWS_EC2_IP }} << 'EOF'
-            if [ ! -d "/home/ubuntu/Blog_API" ]; then
-              git clone https://github.com/Zahid031/Blog_API.git /home/ubuntu/Blog_API
-            fi
+          IMAGE_TAG=${GITHUB_SHA::8}
+          ssh -o StrictHostKeyChecking=no -i ec2_key.pem ubuntu@${{ secrets.AWS_EC2_IP }} << EOF
+            cd /home/ubuntu/Blog_API || git clone https://github.com/Zahid031/Blog_API.git /home/ubuntu/Blog_API
             cd /home/ubuntu/Blog_API
             git pull origin main
-            sudo docker-compose down
-            sudo docker-compose up -d --build
+
+            docker pull zahid03/blog_api:$IMAGE_TAG
+
+            sed -i "s#image: zahid03/blog_api:.*#image: zahid03/blog_api:$IMAGE_TAG#" docker-compose.yml
+
+            sudo docker compose down
+            sudo docker compose up -d --remove-orphans
           EOF
-
-
-

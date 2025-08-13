@@ -1,4 +1,4 @@
-name: Build, Push & Deploy Docker Image
+name: Build & Push Docker Image
 
 on:
   push:
@@ -6,33 +6,18 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
-    runs-on: self-hosted
+  build:
+    runs-on: self-hosted   # <-- Use your self-hosted runner
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set short SHA
-        id: vars
-        run: echo "SHA8=$(echo $GITHUB_SHA | cut -c1-8)" >> $GITHUB_ENV
+      - uses: actions/checkout@v4
 
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+        run: |
+          echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
 
       - name: Build Docker image
-        run: |
-          docker build -t zahid03/blog_api:${SHA8} .
+        run: docker build -t zahid03/blog_api:${GITHUB_SHA::8} .
 
       - name: Push Docker image
-        run: |
-          docker push zahid03/blog_api:${SHA8}
-
-      - name: Update .env file for docker-compose
-        run: |
-          echo "IMAGE_TAG=${SHA8}" > .env
-
-      - name: Deploy with Docker Compose
-        run: |
-          cd $GITHUB_WORKSPACE  # project root
-          docker compose up -d --remove-orphans
+        run: docker push zahid03/blog_api:${GITHUB_SHA::8}
